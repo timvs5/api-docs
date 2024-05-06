@@ -1,8 +1,5 @@
 site_name: Data science API
 
-theme:
-  name: readthedocs
-
 nav:
   - Index: index.md
   - User Documentation:
