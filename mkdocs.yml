@@ -1,0 +1,36 @@
+site_name: Data science API
+
+extra:
+  nojekyll: true
+
+theme:
+  name: readthedocs
+
+nav:
+  - Running docs:  running_docs.md
+  - User Documentation:
+    - Basic requests: user_docs/get-requests.md
+    - Pipelines:  user_docs/Execute-pipeline.md
+    - operations:  user_docs/operations_info.md
+    - connections:  user_docs/connections_info.md
+    - list of operations:
+      - load:  user_docs/operations/load_operation.md
+      - select_columns:  user_docs/operations/select_columns_operation.md
+      - filter_rows:  user_docs/operations/filter_rows_operation.md
+      - aggregate:  user_docs/operations/aggregate_operation.md
+      - merge:  user_docs/operations/merge_operation.md
+      - duplicate:  user_docs/operations/duplicate_operation.md
+      - decision_tree:  user_docs/operations/decision_tree.md
+      - predict:  user_docs/operations/predict_operation.md
+    
+  - Developer Documentation:
+    - startup: dev_docs/how_to_start.md
+    - api.py: dev_docs/api.md
+    - pipeline.py: dev_docs/pipeline.md
+    - connections.py: dev_docs/connections.md
+    - operations:
+      - operation blueprint: dev_docs/operations/operation_blueprint.md
+      - load_operation.py: dev_docs/operations/load_operation.md
+      - select_columns_operation.py: dev_docs/operations/select_columns_operation.md
+      - filter_rows_operation.py: dev_docs/operations/filter_rows_operation.md
+      - aggregate_operation.py: dev_docs/operations/aggregate_operation.md
