@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>operation blueprint - Data science API</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "operation blueprint";
+        var mkdocs_page_input_path = "dev_docs\\operations\\operation_blueprint.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Data science API
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../running_docs/">Running docs</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_docs/get-requests/">Basic requests</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_docs/Execute-pipeline/">Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_docs/operations_info/">operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../user_docs/connections_info/">connections</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">list of operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_docs/operations/load_operation/">load</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_docs/operations/select_columns_operation/">select_columns</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_docs/operations/filter_rows_operation/">filter_rows</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_docs/operations/aggregate_operation/">aggregate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_docs/operations/merge_operation/">merge</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_docs/operations/duplicate_operation/">duplicate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_docs/operations/decision_tree/">decision_tree</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../user_docs/operations/predict_operation/">predict</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../how_to_start/">startup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api/">api.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pipeline/">pipeline.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../connections/">connections.py</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">operations</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">operation blueprint</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#init">init</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hash">hash</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#insert_parameters">insert_parameters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#call">call</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#others">others</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../load_operation/">load_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../select_columns_operation/">select_columns_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../filter_rows_operation/">filter_rows_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../aggregate_operation/">aggregate_operation.py</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Data science API</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Developer Documentation</li>
+          <li class="breadcrumb-item">operations</li>
+      <li class="breadcrumb-item active">operation blueprint</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="blueprint">blueprint</h1>
+<p>This is the general structure that all operations follow.</p>
+<p>Examples are from the <a href="../load_operation/">load_operation</a></p>
+<h2 id="init">init</h2>
+<p>The init function defines the variables and their types.<br>
+Default values may also be defined.</p>
+<p>Example:</p>
+<pre><code>def __init__(self):
+    self.base_sample_size = 25
+    self.filename:str
+    self.sample:bool | int
+    self.randomize_sample:bool = True
+    self.loadable_files = ['mtcars', 'titanic', 'iris','student-attitude']
+</code></pre>
+<h2 id="hash">hash</h2>
+<p>This function is important for caching.</p>
+<p>The hash function calculates a hash using set variables and a list of inputs if given.
+The inputs are given as a list of <a href="../../connections/">connections</a>. The hash is calculated based on what is in the payloads of these connections.</p>
+<p>Example:</p>
+<pre><code>def hash(self, inputs: list[connection]=[], hash = None) -&gt; str:
+    if hash is None:
+        hash = hashlib.md5()
+    hash.update(bytes(self.filename, 'utf-8'))
+    if type(self.sample) is bool:
+        hash.update(bytes(str(int(self.sample == True)), 'utf-8'))
+    else:
+        hash.update(bytes(str(self.sample), 'utf-8'))
+    return super().hash(inputs, hash)
+</code></pre>
+<h2 id="insert_parameters">insert_parameters</h2>
+<p>This function inserts parameters into the variables of the operation. 
+These are to be given as a dictionary with as key a string representing the variable and as value the value to be inserted.
+The keys preferably have the same name as the variables they represent.</p>
+<p>Example:</p>
+<pre><code>def insert_parameters(self, params:dict) -&gt; Exception | None:
+    if params is None:
+        return Exception(&quot;parameters missing&quot;)
+    if params.get(&quot;filename&quot;) is None:
+        return Exception(&quot;parameter 'filename' missing&quot;)
+    else:
+        self.filename = params.get(&quot;filename&quot;) #type: ignore
+    self.sample = string_to_bool_or_int(params.get(&quot;sample&quot;, False))
+    if type(self.sample) == bool:
+        if self.sample == True:
+            self.sample = self.base_sample_size
+        else:
+                self.sample = -1
+    if params.get(&quot;randomize_sample&quot;) is not None:
+        self.randomize_sample = bool(params.get(&quot;randomize_sample&quot;))
+</code></pre>
+<h2 id="call">call</h2>
+<p>This is how the operations are executed.
+It always accepts inputs but does not necessarily use them. 
+It returns a list of outputs in the form of dictionaries with the port on which the output is given and the actual object or dataframe it outputs.</p>
+<p>Example:</p>
+<pre><code>def __call__(self, inputs):
+    return [{&quot;port&quot;:0, &quot;output&quot;:self.load_data(self.filename, self.sample)}]
+</code></pre>
+<p>In this case it calls upon another function in the object to determine the output.</p>
+<h2 id="others">others</h2>
+<p>Other functions can be implemented to make the code mroe readable.
+These should be considered private functions.</p>
+<p>Example:</p>
+<pre><code>def load_data(self, filename:str, sample_size:int) -&gt; pd.DataFrame | ValueError:
+    if filename in self.loadable_files:
+        # change this later
+        if filename == &quot;student-attitude&quot;:
+            data:pd.DataFrame = pd.read_excel(os.path.join(os.path.dirname(__file__), 'extra_datasets', 'attitudereformat.xlsx'))
+        else:
+            data:pd.DataFrame = pd.DataFrame(pydata(filename))
+        if sample_size &gt; -1:
+            if self.randomize_sample:
+                data = data.sample(n=sample_size)
+            else:
+                data = data.head(sample_size)
+        return data
+    else:
+        return ValueError(f&quot;Invalid dataset name. Choose from {self.loadable_files}&quot;)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../connections/" class="btn btn-neutral float-left" title="connections.py"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../load_operation/" class="btn btn-neutral float-right" title="load_operation.py">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../../connections/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../load_operation/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

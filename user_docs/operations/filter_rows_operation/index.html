@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>filter_rows - Data science API</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "filter_rows";
+        var mkdocs_page_input_path = "user_docs\\operations\\filter_rows_operation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Data science API
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../running_docs/">Running docs</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../get-requests/">Basic requests</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Execute-pipeline/">Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../operations_info/">operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../connections_info/">connections</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">list of operations</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../load_operation/">load</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../select_columns_operation/">select_columns</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">filter_rows</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#operation-name">Operation name</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#purpose">Purpose</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#condition">Condition</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#comparator">comparator</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#compare_with_type">compare_with_type</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#outputs">Outputs</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../aggregate_operation/">aggregate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../merge_operation/">merge</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../duplicate_operation/">duplicate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../decision_tree/">decision_tree</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../predict_operation/">predict</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../dev_docs/how_to_start/">startup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../dev_docs/api/">api.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../dev_docs/pipeline/">pipeline.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../dev_docs/connections/">connections.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../../dev_docs/operations/operation_blueprint/">operation blueprint</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../dev_docs/operations/load_operation/">load_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../dev_docs/operations/select_columns_operation/">select_columns_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../dev_docs/operations/filter_rows_operation/">filter_rows_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../../dev_docs/operations/aggregate_operation/">aggregate_operation.py</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Data science API</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">User Documentation</li>
+          <li class="breadcrumb-item">list of operations</li>
+      <li class="breadcrumb-item active">filter_rows</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="filtering-rows">Filtering rows</h1>
+<h2 id="operation-name">Operation name</h2>
+<p>filter_rows</p>
+<h2 id="purpose">Purpose</h2>
+<p>Filtering data based on a set of conditions.
+For example: removing every row where the column "income" has a value above 1800.</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>conditions</td>
+<td>A list of conditions</td>
+<td>list</td>
+<td>yes</td>
+<td>/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="condition">Condition</h3>
+<p>A condition is a dictionary with following parameters.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Datatype</th>
+<th>Required</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>column</td>
+<td>The column you want to filter the data on</td>
+<td>string</td>
+<td>yes</td>
+<td>/</td>
+</tr>
+<tr>
+<td>comparator</td>
+<td>The comparison you want to make</td>
+<td>string</td>
+<td>yes</td>
+<td>/</td>
+</tr>
+<tr>
+<td>compare_with</td>
+<td>the column or value you want to compare with</td>
+<td>string, int, float</td>
+<td>yes</td>
+<td>/</td>
+</tr>
+<tr>
+<td>compare_with_type</td>
+<td>Defines what compare_with is (column or value)</td>
+<td>string</td>
+<td>yes</td>
+<td>/</td>
+</tr>
+</tbody>
+</table>
+<h3 id="comparator">comparator</h3>
+<p>Possible values:</p>
+<ul>
+<li>'=='</li>
+<li>'!='</li>
+<li>'&lt;'</li>
+<li>'&gt;'</li>
+<li>'&lt;='</li>
+<li>'&gt;='</li>
+</ul>
+<p>For example, "comparator":"&gt;"  will result in a dataset with only the rows where value in 'column' &gt; 'compare_with'.</p>
+<h3 id="compare_with_type">compare_with_type</h3>
+<p>Can be either 'column' or 'value'</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Description</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Dataframe to filter on</td>
+<td>dataframe</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Description</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>filtered dataframe</td>
+<td>dataframe</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../select_columns_operation/" class="btn btn-neutral float-left" title="select_columns"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../aggregate_operation/" class="btn btn-neutral float-right" title="aggregate">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../select_columns_operation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../aggregate_operation/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

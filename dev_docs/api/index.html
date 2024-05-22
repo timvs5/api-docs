@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>api.py - Data science API</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "api.py";
+        var mkdocs_page_input_path = "dev_docs\\api.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Data science API
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running_docs/">Running docs</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../user_docs/get-requests/">Basic requests</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../user_docs/Execute-pipeline/">Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../user_docs/operations_info/">operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../user_docs/connections_info/">connections</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">list of operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/load_operation/">load</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/select_columns_operation/">select_columns</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/filter_rows_operation/">filter_rows</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/aggregate_operation/">aggregate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/merge_operation/">merge</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/duplicate_operation/">duplicate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/decision_tree/">decision_tree</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/predict_operation/">predict</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../how_to_start/">startup</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">api.py</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-code">The code</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#apiresult">APIResult</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#startup-code">Startup code</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#request-status">request: status</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#request-datasets">request: datasets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#request-execute-pipeline">request: Execute-pipeline</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#-getting-the-json-and-extracting-basic-info">- Getting the JSON and extracting basic info</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#-calling-json_to_pipeline">- calling json_to_pipeline</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#-executing-pipeline-and-sending-response">- executing pipeline and sending response.</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#json_to_pipeline">json_to_pipeline</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#json-to-operations">json to operations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#json-to-connections">json to connections</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#operation-to-result">operation to result</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#connection-to-result">connection to result</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pipelinememory-to-json">pipelinememory to JSON</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-start-function">The start function</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#startup-flags">Startup flags</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipeline/">pipeline.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../connections/">connections.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/operation_blueprint/">operation blueprint</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/load_operation/">load_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/select_columns_operation/">select_columns_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/filter_rows_operation/">filter_rows_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/aggregate_operation/">aggregate_operation.py</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Data science API</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Developer Documentation</li>
+      <li class="breadcrumb-item active">api.py</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="apipy">api.py</h1>
+<p>api.py is the 'head' of the api. This is where all requests come in and are translated from JSON to its internal logic.</p>
+<p>The api uses <a href="https://flask.palletsprojects.com/en/3.0.x/">Flask</a>.</p>
+<h2 id="the-code">The code</h2>
+<p>From top to bottom</p>
+<h3 id="apiresult">APIResult</h3>
+<p>The APIResult dataclass is used as a return value.
+Functions may return an APIResult where where different return types are possible. </p>
+<pre><code>@dataclass
+class APIResult:
+    payload: tuple[int, Operation] | connection | pipelineObject | str = &quot;&quot;
+    succes: bool = True
+    HTTPStatusCode:int = 200
+</code></pre>
+<p><strong>payload</strong>: The payload is the actual returned value/object. <br>
+<strong>success</strong>: Success will be set to False if an exception has occured. In this case the Payload will be a string containing an error message. <br>
+<strong>HTTPStatuscode</strong>: Returns what <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">status code</a> the api should respond with. This is 200 by default (OK) and will be changed when an exception occurs.</p>
+<h3 id="startup-code">Startup code</h3>
+<p>This code defines the api and sets it up ready to be started.</p>
+<pre><code>app = Flask(__name__)
+CORS(app)
+swagger = Swagger(app)
+use_cache = False
+</code></pre>
+<p>'CORS(app)' sets up <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">Cross-Origin Resource Sharing</a></p>
+<p>'swagger = Swagger(app)' sets up <a href="https://swagger.io">swagger</a></p>
+<p>'use_cache = False' makes it so be default the cache will not be used.</p>
+<h3 id="request-status">request: status</h3>
+<p>This code defines a request that simply returns "api online".
+This is useful for checking if the api is running and able to receive requests.</p>
+<pre><code>@app.route('/status', methods=['GET'])
+def get_status():
+    return jsonify(&quot;api online&quot;)
+</code></pre>
+<h3 id="request-datasets">request: datasets</h3>
+<p>This code defines a request that returns the files that can be loaded.</p>
+<pre><code>@app.route('/datasets', methods=['GET'])
+def get_datasets():
+    return jsonify(loadOperation().loadable_files)
+</code></pre>
+<p>It uses a preset variable in the load_operation.py file. This means it will likely need to be rewritten when the workings of loading data is changed from preset datasets to loading from a database. (This is a planned change.)</p>
+<h3 id="request-execute-pipeline">request: Execute-pipeline</h3>
+<p>This code defines a request to execute a pipeline.</p>
+<pre><code>@app.route('/execute-pipeline', methods=['POST']) # type: ignore
+def execute_pipeline():
+    json = request.get_json(silent=True)
+    request_id = None
+    session_id = None
+    if json is not None:
+        request_id = json.get(&quot;request_id&quot;)
+        session_id = json.get(&quot;session_id&quot;)
+    api_res = json_to_pipeline(json)
+    if not api_res.succes:
+        return jsonify_result(api_res.payload, session_id, request_id), api_res.HTTPStatusCode
+    pipobj:pipelineObject = api_res.payload #type: ignore
+
+    executed = controller.execute_pipeline(pipobj, use_cache, controller.cacheMethod.PIPELINE)
+    if not executed.succes:
+        return jsonify_result(str(f&quot;There was a problem with a '{executed.operation_of_failure.__class__.__name__}' operation:  '&quot;) + str(executed.payload) + &quot;'&quot;, session_id, request_id), 500
+    else:
+        json = pipelinememory_to_json(executed.payload) #type: ignore
+        return jsonify_result(json, session_id, request_id), 200
+</code></pre>
+<h5 id="-getting-the-json-and-extracting-basic-info">- Getting the JSON and extracting basic info</h5>
+<pre><code>json = request.get_json(silent=True)
+request_id = None
+session_id = None
+if json is not None:
+    request_id = json.get(&quot;request_id&quot;)
+    session_id = json.get(&quot;session_id&quot;)
+</code></pre>
+<h5 id="-calling-json_to_pipeline">- calling <a href="#json_to_pipeline">json_to_pipeline</a></h5>
+<pre><code>api_res = json_to_pipeline(json)
+if not api_res.succes:
+        return jsonify_result(api_res.payload, session_id, request_id), api_res.HTTPStatusCode
+pipobj:pipelineObject = api_res.payload #type: ignore
+</code></pre>
+<p>If json_to_pipeline(json) was not succesful the exception is returned as response.
+If it was succesful its return value is saved as pipobj. This will be a pipelineObject.</p>
+<h5 id="-executing-pipeline-and-sending-response">- executing pipeline and sending response.</h5>
+<pre><code>executed = controller.execute_pipeline(pipobj, use_cache, controller.
+cacheMethod.PIPELINE)
+
+if not executed.succes:
+    return jsonify_result(str(f&quot;There was a problem with a '{executed.operation_of_failure.__class__.__name__}' operation:  '&quot;) + str(executed.payload) + &quot;'&quot;, session_id, request_id), 500
+else:
+    json = pipelinememory_to_json(executed.payload) #type: ignore
+    return jsonify_result(json, session_id, request_id), 200
+</code></pre>
+<h3 id="json_to_pipeline">json_to_pipeline</h3>
+<p>Translates JSON to internal logic.</p>
+<pre><code>def json_to_pipeline(json) -&gt; APIResult:
+    if (json is None):
+        return APIResult(&quot;No json input was received by api.&quot;, False, 400)
+    if &quot;operations&quot; not in json:
+        return APIResult(&quot;Request does not define operations.&quot;, False, 400)
+    if &quot;connections&quot; not in json:
+        return APIResult(&quot;Request does not define connections.&quot;, False, 400)
+    if &quot;session_id&quot; not in json:
+        return APIResult(&quot;Request does not define sessionid.&quot;, False, 400)
+    json_operations = json[&quot;operations&quot;]
+    json_connections = json[&quot;connections&quot;]
+
+    pipobj = pipelineObject()
+    pipobj.session_id = json[&quot;session_id&quot;]
+    pipobj.request_id = json.get(&quot;request_id&quot;)
+
+    api_res = json_to_operations(pipobj, json_operations)
+    if not api_res.succes:
+        return api_res
+
+    api_res = json_to_connections(pipobj, json_connections)
+    if not api_res.succes:
+        return api_res
+    return APIResult(pipobj)
+</code></pre>
+<p>Some simple checks:</p>
+<pre><code>if (json is None):
+    return APIResult(&quot;No json input was received by api.&quot;, False, 400)
+if &quot;operations&quot; not in json:
+    return APIResult(&quot;Request does not define operations.&quot;, False, 400)
+if &quot;connections&quot; not in json:
+    return APIResult(&quot;Request does not define connections.&quot;, False, 400)
+if &quot;session_id&quot; not in json:
+    return APIResult(&quot;Request does not define sessionid.&quot;, False, 400)
+</code></pre>
+<p>Defining variables:</p>
+<pre><code>json_operations = json[&quot;operations&quot;]
+json_connections = json[&quot;connections&quot;]
+
+pipobj = pipelineObject()
+pipobj.session_id = json[&quot;session_id&quot;]
+pipobj.request_id = json.get(&quot;request_id&quot;)
+</code></pre>
+<p><a href="#json-to-operations">Translating operations</a>:</p>
+<pre><code>api_res = json_to_operations(pipobj, json_operations)
+    if not api_res.succes:
+        return api_res
+</code></pre>
+<p><a href="#json-to-connections">Translating connections</a>:</p>
+<pre><code>api_res = json_to_connections(pipobj, json_connections)
+    if not api_res.succes:
+        return api_res
+    return APIResult(pipobj)
+</code></pre>
+<h3 id="json-to-operations">json to operations</h3>
+<p>It converts a list of JSON operations into a list of operations and adds these to the pipelineObject.</p>
+<p>This uses <a href="#operation-to-result">operation_to_result</a></p>
+<pre><code>def json_to_operations(pipobj:pipelineObject, json_operations:list) -&gt; APIResult:
+    results: list[APIResult] = []
+    operation_hashes_by_id = {}
+    operations_by_id = {}
+    pipeline:list[Operation] = []
+    for item in json_operations:
+        api_res = operation_to_result(item)
+        if (api_res.succes):
+            results.append(api_res)
+        else:
+            return api_res
+
+    for res in results:
+        if type(res.payload) == tuple:
+            payload = res.payload
+            operations_by_id[payload[0]] = payload[1]
+            operation_hashes_by_id[payload[0]] = payload[1].hash() #type: ignore
+            pipeline.append(payload[1])
+        else:
+            return APIResult(f&quot;unworkable payload detected while preparing pipeline. Payload should have been tuple(int, Operation). Payload given: {api_res.payload} &quot;, False, 500)
+    pipobj.operations = pipeline
+    pipobj.operations_by_id = operations_by_id
+    pipobj.operation_hashes_by_id = operation_hashes_by_id
+    return APIResult(pipobj)
+</code></pre>
+<h3 id="json-to-connections">json to connections</h3>
+<p>It converts a list of JSON connections into a list of connections and adds these to the pipelineObject.</p>
+<p>This uses <a href="#connection-to-result">connection_to_result</a></p>
+<pre><code>def json_to_connections(pipobj:pipelineObject, json_connections:list) -&gt; APIResult:
+    results = []
+    for con in json_connections:
+        api_res = connection_to_result(con, pipobj.operations_by_id)
+        if (api_res.succes):
+            results.append(api_res)
+        else:
+            return api_res
+
+    connections:list[connection] = []
+    for res in results:
+        if type(res.payload) == connection:
+            connections.append(res.payload)
+        else:
+            return APIResult(f&quot;unworkable connection detected while preparing pipeline. Payload should have been connection. Payload given: {api_res.payload}&quot;, False, 500)
+    pipobj.connections = connections
+    return APIResult(pipobj)
+</code></pre>
+<h3 id="operation-to-result">operation to result</h3>
+<p>It takes an operation defined in JSON and translates it to an operation object of the correct class. It may also perform some checks.</p>
+<pre><code>def operation_to_result(json_operation: dict[str, str]) -&gt; APIResult:
+    operation:Operation
+    id:int = 0
+    #get operation
+    match json_operation:
+        case {&quot;operation&quot;: &quot;load&quot;}:
+            params = json_operation.get(&quot;parameters&quot;)
+            check = check_parameters(params, &quot;load&quot;)
+            if check.succes == False:
+                return check
+            operation = loadOperation()
+            insertion_result = operation.insert_parameters(params) #type: ignore
+            if type(insertion_result) == Exception:
+                return APIResult(&quot;A load operation had a problem while inserting parameters. Gave following Exception: &quot; + str(insertion_result), False, 400)
+
+        case {&quot;operation&quot;: &quot;duplicate&quot;}:
+            operation = duplicateOperation()
+
+        case {&quot;operation&quot;:&quot;select_columns&quot;}: 
+            operation = selectColumnsOperation()
+            params = json_operation.get(&quot;parameters&quot;)
+            check = check_parameters(params, &quot;select_columns&quot;)
+            if check.succes == False:
+                return check
+            insertion_result = operation.insert_parameters(params) #type: ignore
+            if type(insertion_result) == Exception:
+                return APIResult(&quot;A select_columns operation had a problem while inserting parameters. Gave following Exception: &quot; + str(insertion_result), False, 400)
+
+        case {&quot;operation&quot;:&quot;merge&quot;}: 
+            params = json_operation.get(&quot;parameters&quot;)
+            check = check_parameters(params, &quot;merge&quot;)
+            if check.succes == False:
+                return check
+            operation = mergeOperation()
+            insertion_result = operation.insert_parameters(params) #type: ignore
+            if type(insertion_result) == Exception:
+                return APIResult(&quot;A merge operation had a problem while inserting parameters. Gave following Exception: &quot; + str(insertion_result), False, 400)
+
+        case {&quot;operation&quot;: &quot;decision_tree&quot;}:
+            params = json_operation.get(&quot;parameters&quot;)
+            check = check_parameters(params, &quot;decision tree&quot;)
+            if check.succes == False:
+                return check
+            operation = decisionTree()
+            insertion_result = operation.insert_parameters(params) #type: ignore
+            if type(insertion_result) == Exception:
+                return APIResult(&quot;A decision tree operation had a problem while inserting parameters. Gave following Exception: &quot; + str(insertion_result), False, 400)
+
+        case {&quot;operation&quot;:&quot;filter_rows&quot;}: 
+            params = json_operation.get(&quot;parameters&quot;)
+            operation = filterRowsOperation()
+            insertion_result = operation.insert_parameters(params) # type: ignore
+            if type(insertion_result) == Exception:
+                return APIResult(&quot;A filter rows operation had a problem while inserting parameters. Gave following Exception: &quot; + str(insertion_result), False, 400)
+
+        case {&quot;operation&quot;:&quot;test_operation&quot;}: 
+            operation = controller.testOperation()
+
+        case {&quot;operation&quot;:&quot;predict&quot;}:
+            params = json_operation.get(&quot;parameters&quot;)
+            operation = predict()
+            insertion_result = operation.insert_parameters(params)
+            if type(insertion_result) == Exception:
+                return APIResult(&quot;A predict operation had a problem while inserting parameters. Gave following Exception: &quot; + str(insertion_result), False, 400)
+
+
+        case {&quot;operation&quot;: notImpl}:
+            return APIResult(f&quot;Operation {notImpl} is not implemented&quot;, False, 400)    
+
+        case _:
+            return APIResult(f&quot;A requested operation is not implemented. Could not find implemented operation regarding the following: {json_operation}&quot;, False, 404)
+
+    # test id
+    match json_operation:
+        case {&quot;id&quot;: _id} if type(_id) == int:
+            id = _id
+        case {&quot;id&quot;: _id}:
+            return APIResult(f&quot;The following id was found not to be convertible to an integer. id: {_id}.&quot;, False, 400)
+        case _:
+            return APIResult(&quot;An operation was found not to have an id.&quot;, False, 400)
+    return APIResult(tuple([id, operation])) #type: ignore
+</code></pre>
+<h3 id="connection-to-result">connection to result</h3>
+<p>It takes a connection defined in JSON and translates it to a connection object.</p>
+<p><strong>Connectiondict</strong> should be the connection in JSON.<br>
+<strong>operations</strong> should be a dictionary of operations with their id as the keys.</p>
+<pre><code>def connection_to_result(connectiondict: dict[str, int], operations:dict[int, Operation]) -&gt; APIResult:
+    return APIResult(connection(operations[connectiondict[&quot;from&quot;]], 
+                                operations[connectiondict[&quot;to&quot;]], 
+                                {cport.FROM:int(connectiondict[&quot;from_port&quot;]), cport.TO:int(connectiondict[&quot;to_port&quot;])}
+                                ))
+</code></pre>
+<h3 id="pipelinememory-to-json">pipelinememory to JSON</h3>
+<p>This converts a pipelineObject into JSON.</p>
+<p>This is used to convert internal logic back to JSON so it can be given as response.</p>
+<pre><code>def pipelinememory_to_json(pipobj:pipelineObject) -&gt; dict[str, str | dict]:
+    pipmem:pipelineMemory = pipobj.pipeline_memory
+    json: dict[str, str | dict] = {}
+    ids_by_operation:dict[Operation, int] = invert_dictionary(pipobj.operations_by_id)
+    for key, value in pipmem.operations_memory.items():
+        operation:Operation = key[0]
+        port:int = key[1]
+        id:int= ids_by_operation[operation]
+        jsonpipe:dict[str, str] = {}
+
+        match value:
+            case val if isinstance(val, pd.DataFrame):
+                jsonpipe[&quot;output&quot;] = dataframe_to_json(val)
+                jsonpipe[&quot;output_type&quot;] = &quot;data&quot;
+
+            case val if isinstance(val, int):
+                jsonpipe[&quot;output&quot;] = str(value)
+                jsonpipe[&quot;output_type&quot;] = &quot;integer&quot;
+
+            case val if isinstance(val, list):
+                jsonpipe[&quot;output&quot;] = str(value)
+                jsonpipe[&quot;output_type&quot;] = &quot;array&quot;
+
+        pipe_output = json.get(&quot;id_&quot; + str(id))
+        if type(pipe_output) == dict:
+            pipe_output.update({&quot;port_&quot; + str(port): jsonpipe})
+        else:
+            pipe_output = {&quot;port_&quot; + str(port): jsonpipe}
+        json[&quot;id_&quot; + str(id)] = pipe_output
+    return json
+</code></pre>
+<pre><code>def operation_to_json(operation:Operation):
+    return str(type(operation))
+
+def invert_dictionary(dict:dict) -&gt; dict:
+    return {v: k for k, v in dict.items()}
+</code></pre>
+<h3 id="the-start-function">The start function</h3>
+<p>This function starts the api.</p>
+<pre><code>if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Run the Flask application.')
+    parser.add_argument('--host', type=str, default=&quot;127.0.0.1&quot;, help='The host')
+    parser.add_argument('--port', type=int, default=5000, help='Port number to run the server on')
+    parser.add_argument('--cache', default=False, action='store_true', help='If true, uses redis cache for better performance')
+    parser.add_argument('--debug', default=False, action='store_true', help='Start in debug mode')
+    args = parser.parse_args()
+
+    use_cache = args.cache
+    app.run(host=args.host,port=args.port, debug=args.debug)
+</code></pre>
+<h4 id="startup-flags">Startup flags</h4>
+<p>When starting the api extra arguments can be given.</p>
+<p>For example:</p>
+<blockquote>
+<p>python api.py --port 5050 --cache</p>
+</blockquote>
+<p>The following argument flags exist:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Followed by</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>--host</td>
+<td>IP address</td>
+<td>127.0.0.1</td>
+<td>Sets the host IP address</td>
+</tr>
+<tr>
+<td>--port</td>
+<td>Port number</td>
+<td>5050</td>
+<td>Sets the host port</td>
+</tr>
+<tr>
+<td>--cache</td>
+<td>Nothing</td>
+<td>/</td>
+<td>Enables cahing</td>
+</tr>
+<tr>
+<td>--debug</td>
+<td>Nothing</td>
+<td>/</td>
+<td>Makes Flask run in Debug mode</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../how_to_start/" class="btn btn-neutral float-left" title="startup"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pipeline/" class="btn btn-neutral float-right" title="pipeline.py">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../how_to_start/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pipeline/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

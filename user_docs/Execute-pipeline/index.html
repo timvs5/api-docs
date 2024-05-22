@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Pipelines - Data science API</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Pipelines";
+        var mkdocs_page_input_path = "user_docs\\Execute-pipeline.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Data science API
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running_docs/">Running docs</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../get-requests/">Basic requests</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Pipelines</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-pipeline">What is a pipeline?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#execute-pipeline">Execute Pipeline</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-goes-in">What goes in?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#what-comes-out">What comes out?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#errors">Errors</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../operations_info/">operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../connections_info/">connections</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">list of operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/load_operation/">load</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/select_columns_operation/">select_columns</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/filter_rows_operation/">filter_rows</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/aggregate_operation/">aggregate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/merge_operation/">merge</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/duplicate_operation/">duplicate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/decision_tree/">decision_tree</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/predict_operation/">predict</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_docs/how_to_start/">startup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_docs/api/">api.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_docs/pipeline/">pipeline.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../dev_docs/connections/">connections.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../dev_docs/operations/operation_blueprint/">operation blueprint</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../dev_docs/operations/load_operation/">load_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../dev_docs/operations/select_columns_operation/">select_columns_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../dev_docs/operations/filter_rows_operation/">filter_rows_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../dev_docs/operations/aggregate_operation/">aggregate_operation.py</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Data science API</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">User Documentation</li>
+      <li class="breadcrumb-item active">Pipelines</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="pipelines">Pipelines</h1>
+<h2 id="what-is-a-pipeline">What is a pipeline?</h2>
+<p>A Pipeline is a list of things you want to do (<a href="../operations_info/">operations</a>) and the order you want them done (<a href="../connections_info/">connections</a>). For example, you might want to retrieve data from a database, select a few columns of data and then train a linear regression model on it. In this case you would use 3 operations and define connections between these operations.</p>
+<h2 id="execute-pipeline">Execute Pipeline</h2>
+<p>You can execute a pipeline by sending a '/Execute-pipeline' POST request to the API.</p>
+<h3 id="what-goes-in">What goes in?</h3>
+<p>In order to execute a pipeline you will need to defien the pipeline in JSON.
+A pipeline is defined as follows:</p>
+<pre><code>{
+&quot;session_id&quot;:session_id,
+&quot;request_id&quot;:request_id,
+&quot;connections&quot;:[
+    connection_1, connection_2, ...
+],
+&quot;operations&quot;:[
+    operation_1, operation_2, ...
+]}
+</code></pre>
+<p>Example:</p>
+<pre><code>{
+&quot;session_id&quot;:1,
+&quot;request_id&quot;:1,
+&quot;connections&quot;:[
+    {&quot;from&quot;:1, &quot;to&quot;:2, &quot;from_port&quot;:0, &quot;to_port&quot;:0}
+],
+&quot;operations&quot;:[
+    {&quot;id&quot;:1,&quot;operation&quot;:&quot;load&quot;,&quot;parameters&quot;:{&quot;filename&quot;:&quot;titanic&quot;, &quot;sample&quot;:1}},
+    {&quot;id&quot;:2,&quot;operation&quot;:&quot;select_columns&quot;, &quot;parameters&quot;:{&quot;columns&quot;:[&quot;age&quot;, &quot;class&quot;]}}
+]}
+</code></pre>
+<h3 id="what-comes-out">What comes out?</h3>
+<p>The response will return a JSON dictionary With the session_id, the request_id and the results of the executed pipeline.<br>
+The result will be a dictionary with the id's of the operations.<br>
+The id's will have a dictionary with the ports they outputted to. <br> 
+The ports will have a dictionary with output and output type.</p>
+<p>Example:</p>
+<pre><code>{
+    &quot;request_id&quot;: 1,
+    &quot;result&quot;: {
+        &quot;id_1&quot;: {
+            &quot;port_0&quot;: {
+                &quot;output&quot;: &quot;{\&quot;columns\&quot;: [\&quot;index\&quot;, \&quot;class\&quot;, \&quot;age\&quot;, \&quot;sex\&quot;, \&quot;survived\&quot;], \&quot;datatypes\&quot;: {\&quot;class\&quot;: \&quot;object\&quot;, \&quot;age\&quot;: \&quot;object\&quot;, \&quot;sex\&quot;: \&quot;object\&quot;, \&quot;survived\&quot;: \&quot;object\&quot;}, \&quot;data\&quot;: [[0, \&quot;1st class\&quot;, \&quot;adults\&quot;, \&quot;man\&quot;, \&quot;yes\&quot;, 1]]}&quot;,
+                &quot;output_type&quot;: &quot;data&quot;
+            }
+        },
+        &quot;id_2&quot;: {
+            &quot;port_0&quot;: {
+                &quot;output&quot;: &quot;{\&quot;columns\&quot;: [\&quot;index\&quot;, \&quot;age\&quot;, \&quot;class\&quot;], \&quot;datatypes\&quot;: {\&quot;age\&quot;: \&quot;object\&quot;, \&quot;class\&quot;: \&quot;object\&quot;}, \&quot;data\&quot;: [[0, \&quot;adults\&quot;, \&quot;1st class\&quot;, 1]]}&quot;,
+                &quot;output_type&quot;: &quot;data&quot;
+            },
+            &quot;port_1&quot;: {
+                &quot;output&quot;: &quot;{\&quot;columns\&quot;: [\&quot;index\&quot;, \&quot;sex\&quot;, \&quot;survived\&quot;], \&quot;datatypes\&quot;: {\&quot;sex\&quot;: \&quot;object\&quot;, \&quot;survived\&quot;: \&quot;object\&quot;}, \&quot;data\&quot;: [[0, \&quot;man\&quot;, \&quot;yes\&quot;, 1]]}&quot;,
+                &quot;output_type&quot;: &quot;data&quot;
+            }
+        }
+    },
+    &quot;session_id&quot;: 1
+}
+</code></pre>
+<p>To get the output of operation with id 3 from port 0 you would call: json["result"]["id_3"]["port_0"]["output"]</p>
+<h3 id="errors">Errors</h3>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../get-requests/" class="btn btn-neutral float-left" title="Basic requests"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../operations_info/" class="btn btn-neutral float-right" title="operations">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../get-requests/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../operations_info/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

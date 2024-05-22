@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>pipeline.py - Data science API</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "pipeline.py";
+        var mkdocs_page_input_path = "dev_docs\\pipeline.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Data science API
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../running_docs/">Running docs</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../user_docs/get-requests/">Basic requests</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../user_docs/Execute-pipeline/">Pipelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../user_docs/operations_info/">operations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../user_docs/connections_info/">connections</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">list of operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/load_operation/">load</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/select_columns_operation/">select_columns</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/filter_rows_operation/">filter_rows</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/aggregate_operation/">aggregate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/merge_operation/">merge</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/duplicate_operation/">duplicate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/decision_tree/">decision_tree</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../user_docs/operations/predict_operation/">predict</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../how_to_start/">startup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../api/">api.py</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">pipeline.py</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pipelineobject">pipelineObject</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pipelinememory">pipelineMemory</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../connections/">connections.py</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/operation_blueprint/">operation blueprint</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/load_operation/">load_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/select_columns_operation/">select_columns_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/filter_rows_operation/">filter_rows_operation.py</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../operations/aggregate_operation/">aggregate_operation.py</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Data science API</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Developer Documentation</li>
+      <li class="breadcrumb-item active">pipeline.py</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="pipelinepy">pipeline.py</h1>
+<h2 id="pipelineobject">pipelineObject</h2>
+<p>The purpose of this object is to contain the information needed to execute a pipeline. Such as the operations, connections and a pipelineMemory.</p>
+<pre><code>class pipelineObject:
+
+    def __init__(self):
+        self.request_id:str | None= None
+        self.session_id:str = &quot;&quot;
+        self.operations:list[Operation] = []
+        self.connections:list[connection] = []
+        self.operations_by_id:dict[int, Operation] = {}
+        self.operation_hashes_by_id:dict[int, str] = {}
+        self.pipeline_memory:pipelineMemory = pipelineMemory()
+</code></pre>
+<h2 id="pipelinememory">pipelineMemory</h2>
+<p>The purpose of this object is to retain and give the return values of executed operations.</p>
+<p>Return values are saved in a dictionary with as key the operation it comes from and the 'port' through which it was released. </p>
+<pre><code>class pipelineMemory:
+
+    def __init__(self) -&gt; None:
+        self.operations_memory: dict[tuple[Operation, int], input_output_object] = {}
+
+    def get_output(self, operation:Operation, port:int=0): 
+        return self.operations_memory.get((operation, port))
+
+    def get_outputs(self, operations:tuple[Operation] | None, ports:tuple[int] | None):
+        if operations is None or ports is None:
+            return None
+        return tuple(self.get_output(operation, port) for operation, port in zip(operations, ports))
+
+    def add_output(self, operation:Operation, port:int, iuo:input_output_object):
+            self.operations_memory[operation, port] = iuo
+
+    def get_full_memory(self):
+        return self.operations_memory
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../api/" class="btn btn-neutral float-left" title="api.py"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../connections/" class="btn btn-neutral float-right" title="connections.py">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../api/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../connections/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
