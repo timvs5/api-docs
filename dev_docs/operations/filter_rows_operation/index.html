@@ -40,6 +40,10 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">introduction</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../../../running_docs/">Running docs</a>
                 </li>
               </ul>
@@ -76,6 +80,8 @@
               </ul>
               <p class="caption"><span class="caption-text">Developer Documentation</span></p>
               <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../../architecture/">architecture</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../how_to_start/">startup</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../api/">api.py</a>
@@ -181,6 +187,11 @@ Comparee = compare_value | compare_column
 <pre><code>class filterRowsOperation(oi.operation_interface):
 </code></pre>
 <h3 id="init">init</h3>
+<p><code>conditions</code> has the list with conditions to check if rows adhere to.</p>
+<p><code>include</code> decides whether to keep or get rid of the rows that comply with the conditions.</p>
+<p><code>set</code> can either be <em>set_type.INTERSECT</em> or <em>set_type.UNION</em>. 
+In the case it is <em>set_type.INTERSECT</em> only the rows that comply with ALL conditions are kept/removed.
+In the case it is <em>set_type.UNION</em> only the rows that comply with AT LEAST ONE condition are kept/removed.</p>
 <pre><code>def __init__(self):
         self.conditions:list[Condition]
         self.include:bool = True
@@ -219,9 +230,18 @@ Comparee = compare_value | compare_column
         self.conditions.append(condition)
 
     if params.get(&quot;include&quot;) is not None:
-        self.include = bool(params.get(&quot;include&quot;))
+            self.include = bool(params.get(&quot;include&quot;))
+        else:
+            self.include = True
 
-    self.set = set_type.INTERSECT
+        set_operation = params.get(&quot;set_operation&quot;)
+        if set_operation is not None:
+            if set_operation == &quot;intersect&quot;:
+                self.set = set_type.INTERSECT
+            if set_operation == &quot;union&quot;:
+                self.set = set_type.UNION
+        else:
+            self.set = set_type.INTERSECT
 </code></pre>
 <h3 id="call">call</h3>
 <pre><code>def __call__(self, inputs: list[connection]=[]):
