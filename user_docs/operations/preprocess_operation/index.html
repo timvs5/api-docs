@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../../img/favicon.ico" />
-    <title>load - Data science API</title>
+    <title>preprocess - Data science API</title>
     <link rel="stylesheet" href="../../../css/theme.css" />
     <link rel="stylesheet" href="../../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "load";
-        var mkdocs_page_input_path = "user_docs\\operations\\load_operation.md";
+        var mkdocs_page_name = "preprocess";
+        var mkdocs_page_input_path = "user_docs\\operations\\preprocess_operation.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -59,19 +59,7 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">list of operations</a>
     <ul class="current">
-                <li class="toctree-l2 current"><a class="reference internal current" href="./">load</a>
-    <ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#operation-name">operation name</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#purpose">Purpose</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#outputs">Outputs</a>
-    </li>
-    </ul>
+                <li class="toctree-l2"><a class="reference internal" href="../load_operation/">load</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../select_columns_operation/">select_columns</a>
                 </li>
@@ -83,7 +71,23 @@
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../duplicate_operation/">duplicate</a>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../preprocess_operation/">preprocess</a>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">preprocess</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#operation-name">operation name</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#purpose">Purpose</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#preprocesses">Preprocesses</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#outputs">Outputs</a>
+    </li>
+    </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../decision_tree/">decision_tree</a>
                 </li>
@@ -135,7 +139,7 @@
     <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">User Documentation</li>
           <li class="breadcrumb-item">list of operations</li>
-      <li class="breadcrumb-item active">load</li>
+      <li class="breadcrumb-item active">preprocess</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -144,11 +148,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="loading-data">Loading data</h1>
+                <h1 id="preprocessing">Preprocessing</h1>
 <h2 id="operation-name">operation name</h2>
-<p>load</p>
+<p>preprocess</p>
 <h2 id="purpose">Purpose</h2>
-<p>The purpose of the load operation is to load in data.</p>
+<p>The purpose of the preprocess operation is to ensure data is usable for training models by handling missing information and encodig non-numeric variables.</p>
 <h2 id="parameters">Parameters</h2>
 <table>
 <thead>
@@ -162,30 +166,36 @@
 </thead>
 <tbody>
 <tr>
-<td>filename</td>
-<td>The datafile to load</td>
-<td>string</td>
+<td>actions</td>
+<td>dictionary with the column name as key <br> and for value a preprocess or list of preprocesses.</td>
+<td>dictionary</td>
 <td>yes</td>
 <td>/</td>
 </tr>
+</tbody>
+</table>
+<h3 id="preprocesses">Preprocesses</h3>
+<p><code>fillna</code> fills in missing value.</p>
+<p><code>drop</code> drops rows with missing value.</p>
+<p><code>encode</code> encodes categorical variables to numerical variables.</p>
+<p>If you do both fillna and drop on a column it will only do the fillna.</p>
+<h2 id="inputs">Inputs</h2>
+<table>
+<thead>
 <tr>
-<td>sample</td>
-<td>sample size</td>
-<td>bool or int</td>
-<td>no</td>
-<td>False</td>
+<th>Port</th>
+<th>Description</th>
+<th>type</th>
 </tr>
+</thead>
+<tbody>
 <tr>
-<td>randomize_sample</td>
-<td>If true, randomizes  what data <br> is used for the sample</td>
-<td>bool</td>
-<td>no</td>
-<td>False</td>
+<td>0</td>
+<td>dataframe to preprocess</td>
+<td>dataframe</td>
 </tr>
 </tbody>
 </table>
-<h2 id="inputs">Inputs</h2>
-<p>The load operation does not take any inputs.</p>
 <h2 id="outputs">Outputs</h2>
 <table>
 <thead>
@@ -198,7 +208,7 @@
 <tbody>
 <tr>
 <td>0</td>
-<td>Loaded dataframe</td>
+<td>preprocessed dataframe</td>
 <td>dataframe</td>
 </tr>
 </tbody>
@@ -207,8 +217,8 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../connections_info/" class="btn btn-neutral float-left" title="connections"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../select_columns_operation/" class="btn btn-neutral float-right" title="select_columns">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../duplicate_operation/" class="btn btn-neutral float-left" title="duplicate"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../decision_tree/" class="btn btn-neutral float-right" title="decision_tree">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -231,10 +241,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../connections_info/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../duplicate_operation/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../select_columns_operation/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../decision_tree/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

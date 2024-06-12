@@ -71,6 +71,8 @@
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../duplicate_operation/">duplicate</a>
                 </li>
+                <li class="toctree-l2"><a class="reference internal" href="../preprocess_operation/">preprocess</a>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../decision_tree/">decision_tree</a>
                 </li>
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">predict</a>
@@ -163,7 +165,7 @@
 <td>values</td>
 <td>list with lists of values to make predictions on</td>
 <td>list of lists</td>
-<td>yes</td>
+<td>no</td>
 <td>/</td>
 </tr>
 </tbody>
@@ -183,8 +185,14 @@
 <td>decision tree model</td>
 <td>model</td>
 </tr>
+<tr>
+<td>1</td>
+<td>dataframe to predict on</td>
+<td>dataframe</td>
+</tr>
 </tbody>
 </table>
+<p>port 1 is not required.</p>
 <h2 id="outputs">Outputs</h2>
 <table>
 <thead>
@@ -197,7 +205,12 @@
 <tbody>
 <tr>
 <td>0</td>
-<td>list of predicted outcomes</td>
+<td>inputted dataframe with added 'predictions' column <br> with predictions for each row</td>
+<td>dataframe</td>
+</tr>
+<tr>
+<td>1</td>
+<td>list of outcomes predicted from values parameter</td>
 <td>list</td>
 </tr>
 </tbody>
